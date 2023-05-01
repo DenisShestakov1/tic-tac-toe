@@ -2,7 +2,7 @@
 using namespace std;
 
 
-int board[3][3]; // игровое поле
+char board[3][3]; // игровое поле
 
 void draw_board() {
     // рисуем игровое поле
@@ -20,7 +20,7 @@ void draw_board() {
 
 bool is_valid_move(int x, int y) {
     // проверяем, можно ли сделать ход в указанную клетку
-    if (x < 0 || x >= 3 || y < 0 || y >= 3) {
+    if (x < 0 || x >= 3 ||  y < 0 || y >= 3) {
         return false; // координаты выходят за границы поля
     }
     if (board[x][y] != ' ') {
@@ -68,55 +68,48 @@ int main() {
         }
     }
     // играем до победы или ничьи
-   int player = 'X';
+    char player = 'X';
     while (true) {
         draw_board();
         cout << "Ход игрока " << player << endl;
-        // запрашиваем координаты клетки для хода
+
+        // Запросить координаты для хода
         int x, y;
         cout << "Введите номер строки: ";
+        cin >> x;
+        cout << "Введите номер столбца: ";
+        cin >> y;
+        --x;
+        --y;
 
-        while (true) {
+        // Проверить, действительно ли это допустимый ход
+        if (!is_valid_move(x, y)) {
+            cout << "Недопустимый ход! Попробуйте еще раз." << endl;
+            continue;
+        }
+
+        // Записать символ игрока в соответствующую ячейку на игровом поле
+        board[x][y] = player;
+
+        // Проверить, завершилась ли игра победой или ничьей
+        char winner = check_winner();
+        if (winner != ' ') {
             draw_board();
-            cout << "Ход игрока " << player << endl;
-
-            // Запросить координаты для хода
-            int x, y;
-            cout << "Введите номер строки: ";
-            cin >> x;
-            cout << "Введите номер столбца: ";
-            cin >> y;
-          
-
-            // Проверить, действительно ли это допустимый ход
-            if (!is_valid_move(x, y)) {
-                cout << "Недопустимый ход! Попробуйте еще раз." << endl;
-                continue;
-            }
-
-            // Записать символ игрока в соответствующую ячейку на игровом поле
-            board[x][y] = player;
-
-            // Проверить, завершилась ли игра победой или ничьей
-            char winner = check_winner();
-            if (winner != ' ') {
-                draw_board();
-                if (winner == 'D') {
-                    cout << "Ничья!" << endl;
-                }
-                else {
-                    cout << "Победил игрок " << winner << "!" << endl;
-                }
-                break;
-            }
-
-            // Сменить игрока
-            if (player == 'X') {
-                player = 'O';
+            if (winner == 'D') {
+                cout << "Ничья!" << endl;
             }
             else {
-                player = 'X';
+                cout << "Победил игрок " << winner << "!" << endl;
             }
+            break;
+        }
+
+        // Сменить игрока
+        if (player == 'X') {
+            player = 'O';
+        }
+        else {
+            player = 'X';
         }
     }
 }
