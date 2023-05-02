@@ -103,7 +103,6 @@ int main() {
             break;
         }
 
-        // Сменить игрока
         if (player == 'X') {
             player = 'O';
         }
