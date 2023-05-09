@@ -66,8 +66,6 @@ int main() {
 		int x = 0, y = 0;
 		char input;
 
-
-
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
 				cout << board[i][j] << " ";
@@ -75,7 +73,6 @@ int main() {
 			}
 			cout << "\n";
 		}
-
 
 		while (true) {
 
@@ -107,12 +104,9 @@ int main() {
 					}
 				}
 				break;
-
 			}
 
 			system("cls");
-
-
 
 			cout << " 1 2 3" << "\n";
 			cout << " —-----" << "\n";
@@ -127,7 +121,6 @@ int main() {
 				}
 				cout << "\n";
 				cout << " —-----" << "\n";
-
 			}
 
 			char winner = check_winner();
@@ -140,7 +133,5 @@ int main() {
 				}
 				break;
 			}
-
 		}
-
 	}
